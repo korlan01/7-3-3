@@ -30,7 +30,7 @@ var seven_vol = [533.33,471.47,358.90,489.81,425.73,410.41,474.90,338.33,284.78,
 
 //set axes
 var x = d3.scaleBand().domain(months).range([0,width]);
-var y = d3.scaleLinear().domain([0,500]).range([height,0]);
+var y = d3.scaleLinear().domain([0,600]).range([height,0]);
 
 //add in d3 code
 d3.select('svg')
@@ -39,7 +39,7 @@ d3.select('svg')
   .append('g')
      .attr('transform','translate('+margin+','+margin+')')
   .selectAll('rect')
-  .data(five_vol)
+  .data(six_vol)
   .enter()
   .append('rect')
     .attr('x',function(d,i) {return i*x.bandwidth()+buffer;})
@@ -58,7 +58,7 @@ d3.select('svg').append("text")
     .attr("text-anchor", "middle")
     .attr("x", margin+width/2)
     .attr("y", 2*margin+height)
-    .text("2015 in Months");
+    .text("2016 in Months");
 
 
 //show y axis
