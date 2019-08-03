@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<head>
+<title>2015 Volume</title>
+<style>
+body {background-color:#F2ECEC;}
+
+h1 {text-align:center;}
+</style>
+</head>
+<body onload='init()'>
+
+<h1>2015 Volume of Avocados Sold</h1>
+<p>This chart looks at the number of avocados sold to distributors in the United States from January 2015-December 2015.</p>
+<br>
+<p><i>Make sure to hover over the charts for extra information!</i></p>
+
+<a href='Homepage.html'><button>Home</button></a>
+<a href='2016BarChart.html'><button>Explore 2016 Volume</button></a>
+<a href='2017BarChart.html'><button>Explore 2017 Volume</button></a>
+<br>
+<svg width=300 height=300>
+</svg>
+
+<script>
+var margin = 50
+var height = 500
+var width = 1000
+var buffer = 10
+var years = [2015,2016,2017]
+var months = ['Jan.','Feb.','Mar.','Apr.','May','June','July','Aug.','Sept.','Oct.','Nov.','Dec.']
+var five_price = [1.37,1.33,1.36,1.38,1.34,1.40,1.41,1.44,1.45,1.39,1.33,1.31]
+var six_price = [1.24,1.24,1.22,1.21,1.20,1.28,1.40,1.41,1.43,1.56,1.55,1.32]
+var seven_price = [1.28,1.21,1.40,1.50,1.53,1.55,1.56,1.70,1.84,1.75,1.52,1.36]
+var five_vol = [318.09,362.64,418.58,344.14,483.78,381.83,356.70,419.24,329.22,305.78,369.44,296.03]
+var six_vol = [475.41,428.65,391.21,401.83,561.23,410.33,467.28,370.80,362.30,360.20,260.21,331.45]
+var seven_vol = [533.33,471.47,358.90,489.81,425.73,410.41,474.90,338.33,284.78,362.78,324.52,459.33]
+
+///////////chart of 2015 prices vs months//////////////////
+
+//set axes
+var x = d3.scaleBand().domain(months).range([0,width]);
+var y = d3.scaleLinear().domain([0,600]).range([height,0]);
+
+//add in d3 code
+d3.select('svg')
+  .attr('width',width+2*margin)
+  .attr('height',height+2*margin)
+  .append('g')
+     .attr('transform','translate('+margin+','+margin+')')
+  .selectAll('rect')
+  .data(five_vol)
+  .enter()
+  .append('rect')
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut)
+    .attr('x',function(d,i) {return i*x.bandwidth()+buffer;})
+    .attr('y',function(d) {return y(d);})
+    .attr('width',x.bandwidth()-buffer)
+    .attr('height',function(d) {return height - y(d);})
+    .attr('fill','green');
+    
+//show x axis
+d3.select('svg').append('g')
+     .attr('transform','translate('+margin+','+(height+margin)+')')
+     .call(d3.axisBottom(x))
+
+//x axis label
+d3.select('svg').append("text")
+    .attr("text-anchor", "middle")
+    .attr("x", margin+width/2)
+    .attr("y", 2*margin+height)
+    .text("2015 in Months");
+
+
+//show y axis
+d3.select('svg').append('g')
+     .attr('transform','translate('+margin+','+margin+')')
+     .call(d3.axisLeft(y))
+     
+//y axis label
+d3.select('svg').append("text")
+    .attr("text-anchor", "middle")
+    .attr("x", -margin*6)
+    .attr("y", 10)
+    .attr("transform", "rotate(-90)")
+    .text("Avocados Sold in the USA (in millions)");
+
+function handleMouseOver(d,i){
+    var x = d3.scaleBand().domain(months).range([0,width]);
+    var y = d3.scaleLinear().domain([1.00,2.00]).range([height,0]);
+    var height = 500
+    d3.select(this)
+       .attr('fill','orange');
+    d3.select('svg').append('text')
+       .attr('text-anchor','middle')
+       .attr('id','chart-label')
+       .attr('x',function() {return i*x.bandwidth()+buffer+1.75*margin;})
+       .attr('y', height-d+2*margin)
+       .text(d.toFixed(0))};
+       
+function handleMouseOut(d,i){
+    d3.select(this)
+       .attr('fill','green')
+    d3.select('#chart-label').remove()}
+
+
+</script>
+
+</body>
+</html>

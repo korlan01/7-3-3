@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<head>
+<title>Prices</title>
+<style>
+body {background-color:#F2ECEC;}
+
+h1 {text-align:center;}
+
+.legend rect {
+   fill:white;
+   stroke:black;
+   opacity:.8;}
+</style>
+</head>
+<body onload='init()'>
+
+<h1>Avocado Prices: 2015-2017</h1>
+<p>This chart looks at the average price of an individual avocado sold from 2015-2017.</p>
+<p><i>Make sure to hover over points for more information!</i></p>
+
+<a href='Homepage.html'><button>Home</button></a>
+<br>
+<svg width=300 height=300>
+</svg>
+
+<script>
+var margin = 50
+var height = 500
+var width = 1000
+var buffer = 10
+var years = [2015,2016,2017]
+var months = ['Jan.','Feb.','Mar.','Apr.','May','June','July','Aug.','Sept.','Oct.','Nov.','Dec.']
+var five_price = [1.37,1.33,1.36,1.38,1.34,1.40,1.41,1.44,1.45,1.39,1.33,1.31]
+var six_price = [1.24,1.24,1.22,1.21,1.20,1.28,1.40,1.41,1.43,1.56,1.55,1.32]
+var seven_price = [1.28,1.21,1.40,1.50,1.53,1.55,1.56,1.70,1.84,1.75,1.52,1.36]
+var color= ['red','blue','green']
+
+
+
+///////////chart of prices vs months//////////////////
+
+//set axes
+var x = d3.scaleBand().domain(months).range([0,width]);
+var y = d3.scaleLinear().domain([1.00,2.00]).range([height,0]);
+
+//add in d3 code for one chart
+d3.select('svg')
+  .attr('width',width+2*margin)
+  .attr('height',height+2*margin)
+  .append('g')
+     .attr('transform','translate('+margin+','+margin+')')
+  .selectAll('circle')
+  .data(five_price)
+  .enter()
+  .append('circle')
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut)
+    .attr('cx',function(d,i) {return i*x.bandwidth()+margin;})
+    .attr('cy',function(d) {return y(d);})
+    .attr('r',5)
+    .attr('fill','red');
+
+
+
+//add in d3 code for one chart
+d3.select('svg')
+  .attr('width',width+2*margin)
+  .attr('height',height+2*margin)
+  .append('g')
+     .attr('transform','translate('+margin+','+margin+')')
+  .selectAll('circle')
+  .data(six_price)
+  .enter()
+  .append('circle')
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut)
+    .attr('cx',function(d,i) {return i*x.bandwidth()+margin;})
+    .attr('cy',function(d) {return y(d);})
+    .attr('r',5)
+    .attr('fill','blue');
+    
+//add in d3 code for one chart
+d3.select('svg')
+  .attr('width',width+2*margin)
+  .attr('height',height+2*margin)
+  .append('g')
+     .attr('transform','translate('+margin+','+margin+')')
+  .selectAll('circle')
+  .data(seven_price)
+  .enter()
+  .append('circle')
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut)
+    .attr('cx',function(d,i) {return i*x.bandwidth()+margin;})
+    .attr('cy',function(d) {return y(d);})
+    .attr('r',5)
+    .attr('fill','green')
+
+//show x axis
+d3.select('svg').append('g')
+     .attr('transform','translate('+margin+','+(height+margin)+')')
+     .call(d3.axisBottom(x));
+
+//x axis label
+d3.select('svg').append("text")
+    .attr("text-anchor", "middle")
+    .attr("x", margin+width/2)
+    .attr("y", 2*margin+height-10)
+    .text("Month");
+
+
+//show y axis
+d3.select('svg').append('g')
+     .attr('transform','translate('+margin+','+margin+')')
+     .call(d3.axisLeft(y))
+     
+//y axis label
+d3.select('svg').append("text")
+    .attr("text-anchor", "middle")
+    .attr("x", -margin*7)
+    .attr("y", 10)
+    .attr("transform", "rotate(-90)")
+    .text("Average Price of one Avocado");
+
+//set up legend box
+d3.select('svg').append('rect')
+    .attr('x',2*margin)
+    .attr('y',10)
+    .attr('width',225) 
+    .attr('height',150)
+    .attr('fill','none')
+    .attr('stroke','black');
+
+//green dot
+d3.select('svg').append('circle')
+    .attr('cx',3*margin)
+    .attr('cy',40)
+    .attr('r',8)
+    .attr('fill','green')
+    
+//red dot    
+d3.select('svg').append('circle')
+    .attr('cx',3*margin)
+    .attr('cy',80)
+    .attr('r',8)
+    .attr('fill','blue')
+
+//blue dot
+d3.select('svg').append('circle')
+    .attr('cx',3*margin)
+    .attr('cy',120)
+    .attr('r',8)
+    .attr('fill','red')
+   
+//add in 2017label    
+d3.select('svg').append("text")
+    .attr("text-anchor", "middle")
+    .attr("x", 4*margin+20)
+    .attr("y", 45)
+    .text("2017 Prices");
+    
+//add in 2016label    
+d3.select('svg').append("text")
+    .attr("text-anchor", "middle")
+    .attr("x", 4*margin+20)
+    .attr("y", 85)
+    .text("2016 Prices");
+    
+//add in 2015label    
+d3.select('svg').append("text")
+    .attr("text-anchor", "middle")
+    .attr("x", 4*margin+20)
+    .attr("y", 125)
+    .text("2015 Prices");
+
+function handleMouseOver(d,i){
+    var x = d3.scaleBand().domain(months).range([0,width]);
+    var y = d3.scaleLinear().domain([1.00,2.00]).range([height,0]);
+    d3.select(this)
+       .attr('r',10);
+    d3.select('svg').append('text')
+       .attr('text-anchor','middle')
+       .attr('id','chart-label')
+       .attr('x',function() {return i*x.bandwidth()+1.4*margin;})
+       .attr('y',function() {return y(d)+margin;})
+       .text('$'+d.toFixed(2))};
+       
+function handleMouseOut(d,i){
+    d3.select(this)
+       .attr('r',5)
+    d3.select('#chart-label').remove()}
+    
+    
+
+
+</script>
+
+</body>
+</html>
+
