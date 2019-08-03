@@ -18,11 +18,12 @@ h1 {text-align:center;}
      <h1>An Exploration of Avocados</h1>
    </div>
 </div>
-<p>Many jokes in recent years have pointed to the fact that millennials love their avocados. It is sometimes stated that we love avocado toast so much that we can’t afford to buy houses or even more out of our parents’ basements! Jokes aside, avocados present an interesting snapshot of today’s society. Our primary supply of avocados in the United States come from Mexico, which could lead to an examination in trade agreements or political relations. Were prices increased as trade tensions did or was their little effect? Also, avocados require a particular set of growing conditions that may be threatened by climate change. One could even look into health crazes in recent years. With the keto diet increasing in popularity, people are turning to avocados as a more health conscious source of fat. Depending on what factors you would like to look into, avocados provide an interesting portrait of society.
+<p>Many jokes in recent years have pointed to the fact that millennials love their avocados. It is sometimes stated that we love avocado toast so much that we canâ€™t afford to buy houses or even move out of our parentsâ€™ basements! Jokes aside, avocados present an interesting snapshot of todayâ€™s society. Our primary supply of avocados in the United States come from Mexico, which could lead to an examination in trade agreements or political relations. Were prices increased as trade tensions did or was there little effect? Also, avocados require a particular set of growing conditions that may be threatened by climate change. One could even look into health crazes in recent years. With the keto diet increasing in popularity, people are turning to avocados as a more health conscious source of fat. Depending on what factors you would like to look into, avocados provide an interesting portrait of society.
  </p>
 
-<p>Below, there are options to look into both the pricing and volume of avocados sold in the United States from 2015-2016.  </p>
-
+<p>Below, there are options to look into both the pricing and volume of avocados sold in the United States from 2015-2017. Now let's explore! </p>
+<br>
+<p><i>Make sure to hover over the charts for extra information!</i></p>
 <a href='2015BarChart.html'><button>Explore 2015 Volume</button></a>
 <a href='2016BarChart.html'><button>Explore 2016 Volume</button></a>
 <a href='2017BarChart.html'><button>Explore 2017 Volume</button></a>
@@ -94,7 +95,7 @@ d3.select('svg').append("text")
     .attr("x", -margin*6)
     .attr("y", 10)
     .attr("transform", "rotate(-90)")
-    .text("Avocados Sent to the USA to be Sold (in millions)");
+    .text("Avocados Sold in the USA (in millions)");
     
 function handleMouseOver(d,i){
     var x = d3.scaleBand().domain(months).range([0,width]);
